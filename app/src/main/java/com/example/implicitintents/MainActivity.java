@@ -6,6 +6,7 @@ import androidx.core.app.ShareCompat;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonURL = findViewById(R.id.buttonURL);
         Button buttonLocation = findViewById(R.id.buttonLocation);
         Button buttonText = findViewById(R.id.buttonText);
+        Button buttonCamera = findViewById(R.id.buttonCamera);
 
         buttonURL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
                         .setChooserTitle("Share text with: ")
                         .setText(text)
                         .startChooser();
+            }
+        });
+
+        buttonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
